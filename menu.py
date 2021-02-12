@@ -1,6 +1,5 @@
 import pygame,sys
 import time
-
 class Cursor(pygame.Rect):
     def __init__(self):
         pygame.Rect.__init__(self,0,0,1,1) #Se crea un rectangulo
@@ -25,26 +24,26 @@ class Boton(pygame.sprite.Sprite):
         pantalla.blit(self.imagen_actual,self.rect)
             
 
-def main():
-    pygame.init() 
+def main(window):
+
     
-    pantalla=pygame.display.set_mode((1080,720))
+    pantalla=window
     
     pygame.display.set_caption("El Gato & El Ratón") # Titulo de la Ventana
     #reloj para controlar los fps
     reloj1=pygame.time.Clock()
 
     
-    milogo = pygame.image.load("fondo.png")
+    milogo = pygame.image.load("Imagenes/fondo.png")
     
-    juego1 = pygame.image.load("marron1.png")
-    juego11 = pygame.image.load("azul1.png")
+    juego1 = pygame.image.load("Imagenes/marron1.png")
+    juego11 = pygame.image.load("Imagenes/azul1.png")
 
-    juego2 = pygame.image.load("marron2.png")
-    juego22 = pygame.image.load("azul2.png")
+    juego2 = pygame.image.load("Imagenes/marron2.png")
+    juego22 = pygame.image.load("Imagenes/azul2.png")
 
-    conf1 = pygame.image.load("ajus1.png")
-    conf2 = pygame.image.load("ajus2.png")
+    conf1 = pygame.image.load("Imagenes/ajus1.png")
+    conf2 = pygame.image.load("Imagenes/ajus2.png")
 
     #logo1 = logo(milogo)
     boton1 = Boton(juego1,juego11,450,450)
@@ -62,8 +61,10 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if cursor1.colliderect(boton1.rect):
-                    time.sleep(3)
-                    salir = True
+                    MododeJuego = "JcJ"
+                    return MododeJuego 
+
+                    
 
             # si el evento es del tipo 
             # pygame.QUIT( cruz de la ventana)
@@ -80,8 +81,7 @@ def main():
         boton2.update(pantalla,cursor1)
         boton3.update(pantalla,cursor1)
 
-        pygame.display.update() #actualizo el display
-        
-    pygame.quit()
+        pygame.display.update() #actualizo el display   
     
-main() 
+    pygame.quit() 
+    sys.exit()
