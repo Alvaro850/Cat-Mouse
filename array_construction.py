@@ -4,7 +4,6 @@ def coord_array(n,PI_x,PI_y,PF_x,PF_y):
     dy = (PF_y-PI_y)/(n-1)
     coord = np.ndarray((n,n),dtype=tuple)
     x = 0
-
     while x < n:
         y = 0
         while y < n:
