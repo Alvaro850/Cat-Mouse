@@ -17,7 +17,7 @@ def start():
     PF_x = 840
     PI_y = 60
     PF_y = 660
-    n = 6
+    n = 10
     dx = (PF_x-PI_x)/(n-1)
     dy = (PF_y-PI_y)/(n-1)
     coord = coord_array(n, PI_x, PI_y, PF_x, PF_y)
@@ -61,7 +61,6 @@ def start():
         if MododeJuego == "Ninguno":
             MododeJuego = main(window)
         if MododeJuego == "JcJ":
-            print(gridData.poscYR)
             if bk1 == False and bk2 == False:
                 if p1 == True:
                     Grid_Create(n, window, negro, blanco, posrect, mi_imagen, posXQ, posYQ)
