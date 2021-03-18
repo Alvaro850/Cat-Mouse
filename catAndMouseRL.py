@@ -27,7 +27,7 @@ epsilon = 0.9
 EPS_DECAY = 0.9998
 SHOW_EVERY = 1
 
-start_q_table = "qtable-1616030981.pickle"
+start_q_table = None
 
 LEARNING_RATE = 0.1
 DISCOUNT = 0.95
