@@ -17,7 +17,7 @@ def start():
     PF_x = 840
     PI_y = 60
     PF_y = 660
-    n = 10
+    n = 6
 
 
     dx = (PF_x-PI_x)/(n-1)
@@ -63,6 +63,81 @@ def start():
         if MododeJuego == "Ninguno":
             MododeJuego = main(window)
         if MododeJuego == "JcJ":
+            if bk1 == False and bk2 == False:
+                if p1 == True:
+                    Grid_Create(n, window, negro, blanco, posrect, mi_imagen, posXQ, posYQ)
+                    Robot_1(posXG, posYG, window)
+                    Robot_2(posXR, posYR, window)
+                    window.blit(miTexto3, (470, 20))
+                    pg.display.update()
+                    time.sleep(3)
+                    start()
+                elif p2 == True:
+                    Grid_Create(n, window, negro, blanco, posrect, mi_imagen, posXQ, posYQ)
+                    Robot_1(posXG, posYG, window)
+                    Robot_2(posXR, posYR, window)
+                    window.blit(miTexto4, (470, 20))
+                    pg.display.update()
+                    time.sleep(3)
+                    start()
+            else:
+                Grid_Create(n, window, negro, blanco, posrect, mi_imagen, posXQ, posYQ)
+                Robot_1(posXG, posYG, window)
+                Robot_2(posXR, posYR, window)
+                pg.display.update()
+            while bk1 == True:
+                Grid_Create(n, window, negro, blanco, posrect, mi_imagen, posXQ, posYQ)
+                Robot_1(posXG, posYG, window)
+                Robot_2(posXR, posYR, window)
+                window.blit(miTexto1, (470, 20))
+                pg.display.update()
+                decision1, x1, y1, bk1, bk2 = P1_mov(window, negro, blanco, posrect, mi_imagen, posYG, posXG, posYR, posXR, velocidad, posXQ, posYQ, dx, dy, gridData)
+            while bk2 == True:
+                Grid_Create(n, window, negro, blanco, posrect, mi_imagen, posXQ, posYQ)
+                Robot_1(posXG, posYG, window)
+                Robot_2(posXR, posYR, window)
+                window.blit(miTexto2, (470, 20))
+                pg.display.update()
+                decision2, x2, y2, bk1, bk2, gridData = P2_mov(window, negro, blanco, posrect, mi_imagen, posYG, posXG, posYR, posXR, velocidad, posXQ, posYQ, dx, dy, gridData)
+                if (bk2 == False and bk1 == True):
+                    posXG, posYG, posXR, posYR = decision(n, decision1, decision2, window, negro, blanco, posrect, mi_imagen, posYG, posXG, posYR, posXR, velocidad, x1, y1, x2, y2, posXQ, posYQ)
+            if abs(posXR-posXQ) <= dx+1 and abs(posYR-posYQ) <= 1:
+                Grid_Create(n, window, negro, blanco, posrect, mi_imagen, posXQ, posYQ)
+                Robot_1(posXG, posYG, window)
+                Robot_2(posXR, posYR, window)
+                window.blit(miTexto4, (470, 20))
+                pg.display.update()
+                bk1 = False
+                bk2 = False
+                p2 = True
+            elif abs(posYR-posYQ) <= dy+1 and abs(posXR-posXQ) <= 1:
+                Grid_Create(n, window, negro, blanco, posrect, mi_imagen, posXQ, posYQ)
+                Robot_1(posXG, posYG, window)
+                Robot_2(posXR, posYR, window)
+                window.blit(miTexto4, (470, 20))
+                bk1 = False
+                bk2 = False
+                p2 = True
+            elif abs(posXR-posXG) <= dx+1 and abs(posYR-posYG) <= 1:
+                Grid_Create(n, window, negro, blanco, posrect, mi_imagen, posXQ, posYQ)
+                Robot_1(posXG, posYG, window)
+                Robot_2(posXR, posYR, window)
+                window.blit(miTexto3, (470, 20))
+                pg.display.update()
+                bk1 = False
+                bk2 = False
+                p1 = True
+            elif abs(posYR-posYG) <= dy+1 and abs(posXR-posXG) <= 1:
+                Grid_Create(n, window, negro, blanco, posrect, mi_imagen, posXQ, posYQ)
+                Robot_1(posXG, posYG, window)
+                Robot_2(posXR, posYR, window)
+                window.blit(miTexto3, (470, 20))
+                pg.display.update()
+                bk1 = False
+                bk2 = False
+                p1 = True
+        
+        if MododeJuego == "JcM":
             if bk1 == False and bk2 == False:
                 if p1 == True:
                     Grid_Create(n, window, negro, blanco, posrect, mi_imagen, posXQ, posYQ)

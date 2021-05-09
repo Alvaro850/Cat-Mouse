@@ -19,13 +19,13 @@ from PIL import Image
 
 
 n = 10
-HM_EPISODES = 2
+HM_EPISODES = 10000
 MOVE_PENALTY = 1
 ENEMY_PENALTY = 300
 FOOD_REWARD = 25
 epsilon = 0.9
 EPS_DECAY = 0.9998
-SHOW_EVERY = 1
+SHOW_EVERY = 1000
 
 start_q_table = None
 
@@ -185,7 +185,7 @@ for episode in range(HM_EPISODES):
             miTexto3 = miFuente.render("Jugador 1 Ganó", 0, verde)
             miTexto4 = miFuente.render("Jugador 2 Ganó", 0, rojo)
             velocidad = 0.1
-            time.sleep(0.5)
+            time.sleep(0.2)
             if bk1 == False and bk2 == False:
                 if p1 == True:
                     Grid_Create(n, window, negro, blanco, posrect, mi_imagen, posXQ, posYQ)
@@ -218,6 +218,7 @@ plt.show()
 
 with open(f"qtable-{int(time.time())}.pickle", "wb") as f:
     pickle.dump(q_table, f)
+pg.exit()
 
 
 
