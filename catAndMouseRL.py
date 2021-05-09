@@ -25,9 +25,9 @@ ENEMY_PENALTY = 300
 FOOD_REWARD = 25
 epsilon = 0.9
 EPS_DECAY = 0.9998
-SHOW_EVERY = 1000
+SHOW_EVERY = 5000
 
-start_q_table = None
+start_q_table = "qtable-1620582704.pickle"
 
 LEARNING_RATE = 0.1
 DISCOUNT = 0.95

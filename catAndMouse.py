@@ -10,16 +10,33 @@ import random
 import numpy as np
 from functions.array_construction import *
 from functions.menu import *
-
+from functions.IA_mov_Component import *
 
 def start():
     PI_x = 240
     PF_x = 840
     PI_y = 60
     PF_y = 660
-    n = 6
+    n = 10
+    HM_EPISODES = 10000
+    MOVE_PENALTY = 1
+    ENEMY_PENALTY = 300
+    FOOD_REWARD = 25
+    epsilon = 0.9
+    EPS_DECAY = 0.9998
+    SHOW_EVERY = 1000
 
+    start_q_table = "qtable-1620582704.pickle"
+    cont = 0
+    LEARNING_RATE = 0.1
+    DISCOUNT = 0.95
 
+    PLAYER_N = 1
+    FOOD_N = 2
+    ENEMY_N = 3
+    d = {1: (255, 175, 0),
+        2:(0, 255, 0),
+        3:(0, 0, 255)}
     dx = (PF_x-PI_x)/(n-1)
     dy = (PF_y-PI_y)/(n-1)
     coord = coord_array(n, PI_x, PI_y, PF_x, PF_y)
@@ -47,7 +64,7 @@ def start():
     miTexto3 = miFuente.render("Jugador 1 Ganó", 0, verde)
     miTexto4 = miFuente.render("Jugador 2 Ganó", 0, rojo)
     velocidad = 0.1
-    MododeJuego = "Ninguno"
+    MododeJuego = "JcM"
     class gridData:
         n1 = n-1
         poscXG = random.randrange(n)
@@ -166,15 +183,17 @@ def start():
                 Robot_2(posXR, posYR, window)
                 window.blit(miTexto1, (470, 20))
                 pg.display.update()
-                decision1, x1, y1, bk1, bk2 = P1_mov(window, negro, blanco, posrect, mi_imagen, posYG, posXG, posYR, posXR, velocidad, posXQ, posYQ, dx, dy, gridData)
+                decision1, x1, y1, bk1, bk2, gridData = P1_mov(window, negro, blanco, posrect, mi_imagen, posYG, posXG, posYR, posXR, velocidad, posXQ, posYQ, dx, dy, gridData)
             while bk2 == True:
                 Grid_Create(n, window, negro, blanco, posrect, mi_imagen, posXQ, posYQ)
                 Robot_1(posXG, posYG, window)
                 Robot_2(posXR, posYR, window)
                 window.blit(miTexto2, (470, 20))
                 pg.display.update()
-                decision2, x2, y2, bk1, bk2, gridData = P2_mov(window, negro, blanco, posrect, mi_imagen, posYG, posXG, posYR, posXR, velocidad, posXQ, posYQ, dx, dy, gridData)
+                decision2, x2, y2, bk1, bk2,gridData = IA_mov(start_q_table,dx,dy,posYR,posXR,gridData,n,cont)
+                cont += 1
                 if (bk2 == False and bk1 == True):
+                    cont = 0
                     posXG, posYG, posXR, posYR = decision(n, decision1, decision2, window, negro, blanco, posrect, mi_imagen, posYG, posXG, posYR, posXR, velocidad, x1, y1, x2, y2, posXQ, posYQ)
             if abs(posXR-posXQ) <= dx+1 and abs(posYR-posYQ) <= 1:
                 Grid_Create(n, window, negro, blanco, posrect, mi_imagen, posXQ, posYQ)

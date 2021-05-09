@@ -23,6 +23,10 @@ def P1_mov(window, negro, blanco, posrect, mi_imagen, posYG, posXG, posYR, posXR
                     bk1 = False
                     bk2 = True
                     gridData.poscYG -= 1
+                    print("Y:")
+                    print(gridData.poscYG)
+                    print("X:")
+                    print(gridData.poscXG)
                 else:
                     print("no se puede coger pa aca")
             elif evento.key == K_DOWN:
@@ -32,6 +36,10 @@ def P1_mov(window, negro, blanco, posrect, mi_imagen, posYG, posXG, posYR, posXR
                     bk1 = False
                     bk2 = True
                     gridData.poscYG += 1
+                    print("Y:")
+                    print(gridData.poscYG)
+                    print("X:")
+                    print(gridData.poscXG)
                 else:
                     print("no se puede coger pa aca")
             elif evento.key == K_RIGHT:
@@ -41,6 +49,10 @@ def P1_mov(window, negro, blanco, posrect, mi_imagen, posYG, posXG, posYR, posXR
                     bk1 = False
                     bk2 = True
                     gridData.poscXG += 1
+                    print("Y:")
+                    print(gridData.poscYG)
+                    print("X:")
+                    print(gridData.poscXG)
                 else:
                     print("no se puede coger pa aca")
             elif evento.key == K_LEFT:
@@ -50,6 +62,11 @@ def P1_mov(window, negro, blanco, posrect, mi_imagen, posYG, posXG, posYR, posXR
                     bk1 = False
                     bk2 = True
                     gridData.poscXG -= 1
+                    print("Y:")
+                    print(gridData.poscYG)
+                    print("X:")
+                    print(gridData.poscXG)
                 else:
                     print("no se puede coger pa aca")
-    return decision1, x1, y1, bk1, bk2
+    
+    return decision1, x1, y1, bk1, bk2,gridData
