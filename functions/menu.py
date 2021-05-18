@@ -63,6 +63,9 @@ def main(window):
                 if cursor1.colliderect(boton1.rect):
                     MododeJuego = "JcJ"
                     return MododeJuego 
+                if cursor1.colliderect(boton2.rect):
+                    MododeJuego = "JcM"
+                    return MododeJuego
 
                     
 

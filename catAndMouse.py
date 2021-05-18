@@ -64,7 +64,7 @@ def start():
     miTexto3 = miFuente.render("Jugador 1 Ganó", 0, verde)
     miTexto4 = miFuente.render("Jugador 2 Ganó", 0, rojo)
     velocidad = 0.1
-    MododeJuego = "JcM"
+    MododeJuego = "Ninguno"
     class gridData:
         n1 = n-1
         poscXG = random.randrange(n)
@@ -108,7 +108,7 @@ def start():
                 Robot_2(posXR, posYR, window)
                 window.blit(miTexto1, (470, 20))
                 pg.display.update()
-                decision1, x1, y1, bk1, bk2 = P1_mov(window, negro, blanco, posrect, mi_imagen, posYG, posXG, posYR, posXR, velocidad, posXQ, posYQ, dx, dy, gridData)
+                decision1, x1, y1, bk1, bk2, gridData= P1_mov(window, negro, blanco, posrect, mi_imagen, posYG, posXG, posYR, posXR, velocidad, posXQ, posYQ, dx, dy, gridData)
             while bk2 == True:
                 Grid_Create(n, window, negro, blanco, posrect, mi_imagen, posXQ, posYQ)
                 Robot_1(posXG, posYG, window)
