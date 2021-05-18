@@ -14,10 +14,10 @@ import pickle
 import matplotlib.pyplot as plt
 from matplotlib import style
 from PIL import Image
+from io import open
 
 
-
-
+Datos_I = open("Datos_Raton_Miedoso.txt","w")
 n = 10
 HM_EPISODES = 10000
 MOVE_PENALTY = 1
@@ -25,10 +25,10 @@ ENEMY_PENALTY = 300
 FOOD_REWARD = 25
 epsilon = 0.9
 EPS_DECAY = 0.9998
-SHOW_EVERY = 5000
-
-start_q_table = "qtable-1620582704.pickle"
-
+SHOW_EVERY = 1000
+CLOSETOCHEESE_REWARD = 3
+start_q_table = None
+CLOSETOCAT_PENALTY = 2
 LEARNING_RATE = 0.1
 DISCOUNT = 0.95
 
@@ -101,9 +101,20 @@ for episode in range(HM_EPISODES):
     bk2 = True
     p1 = False
     p2 = False
+    
+
     player = Blob()
     food = Blob()
     enemy = Blob()
+    
+    while (abs(player.x-enemy.x) <= 1 and abs(player.y-enemy.y) == 0) or (abs(player.y-enemy.y) <= 1 and abs(player.x-enemy.x) == 0):
+        print("estuvieron al lado")
+        player = Blob()
+        food = Blob()
+        enemy = Blob()
+
+
+
     posXG, posYG = coord[enemy.y, enemy.x]
     posXR, posYR = coord[player.y, player.x]
     posXQ, posYQ = coord[food.y, food.x]  
@@ -126,6 +137,10 @@ for episode in range(HM_EPISODES):
         player.action(action)
         enemy.action(actione)
         #food.move()
+        posXRa = posXR
+        posYRa = posYR
+        posXGa = posXG
+        posYGa = posYG
         posXG, posYG = coord[enemy.y, enemy.x]
         posXR, posYR = coord[player.y, player.x]
         posXQ, posYQ = coord[food.y, food.x] 
@@ -150,6 +165,20 @@ for episode in range(HM_EPISODES):
             bk1 = False
             bk2 = False
             p1 = True
+
+
+
+        # elif abs(posXRa-posXQ) > abs(posXR-posXQ):
+        #     reward = CLOSETOCHEESE_REWARD 
+        # elif abs(posYRa-posYQ) > abs(posYR-posYQ):
+        #     reward = CLOSETOCHEESE_REWARD 
+        
+
+        # elif abs(posXR-posXG) < abs(posXRa-posXGa):
+        #     reward = -CLOSETOCAT_PENALTY 
+        # elif abs(posYR-posYG) < abs(posYRa-posYGa):
+        #     reward = -CLOSETOCAT_PENALTY
+        
         else:
             reward = -MOVE_PENALTY
 
@@ -209,13 +238,15 @@ for episode in range(HM_EPISODES):
             break
     episode_rewards.append(episode_reward)
     epsilon *= EPS_DECAY
-moving_avg = np.convolve(episode_rewards,np.ones((SHOW_EVERY, ))/ SHOW_EVERY, mode="valid")
+    Datos_I.write(str(episode_reward) + "," + str(episode) + "\n")
 
+moving_avg = np.convolve(episode_rewards,np.ones((SHOW_EVERY, ))/ SHOW_EVERY, mode="valid")
+ 
 plt.plot([i for i in range(len(moving_avg))], moving_avg)
 plt.ylabel(f"reward {SHOW_EVERY}ma")
 plt.xlabel("episode #")
 plt.show()
-
+Datos_I.close()
 with open(f"qtable-{int(time.time())}.pickle", "wb") as f:
     pickle.dump(q_table, f)
 pg.exit()
