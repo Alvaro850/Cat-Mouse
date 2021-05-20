@@ -1,5 +1,6 @@
 import pygame,sys
 import time
+from functions.ajustes import main as mn
 class Cursor(pygame.Rect):
     def __init__(self):
         pygame.Rect.__init__(self,0,0,1,1) #Se crea un rectangulo
@@ -24,7 +25,7 @@ class Boton(pygame.sprite.Sprite):
         pantalla.blit(self.imagen_actual,self.rect)
             
 
-def main(window):
+def main(window,n):
 
     
     pantalla=window
@@ -62,10 +63,17 @@ def main(window):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if cursor1.colliderect(boton1.rect):
                     MododeJuego = "JcJ"
-                    return MododeJuego 
+                    return MododeJuego,n
+            if event.type == pygame.MOUSEBUTTONDOWN:
                 if cursor1.colliderect(boton2.rect):
                     MododeJuego = "JcM"
-                    return MododeJuego
+                    return MododeJuego,n
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if cursor1.colliderect(boton3.rect):
+                    MododeJuego,n=mn(window,n)
+                    MododeJuego = "Ninguno"
+                    return MododeJuego,n 
+
 
                     
 

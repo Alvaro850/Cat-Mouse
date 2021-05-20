@@ -17,15 +17,17 @@ from PIL import Image
 from io import open
 
 
-Datos_I = open("Datos_Raton_Miedoso.txt","w")
+
+RATON = "Miedoso"
 n = 10
+Datos_I = open(f"datos/Datos_Raton_{RATON}_{n}.txt","w")
 HM_EPISODES = 10000
 MOVE_PENALTY = 1
 ENEMY_PENALTY = 300
 FOOD_REWARD = 25
 epsilon = 0.9
 EPS_DECAY = 0.9998
-SHOW_EVERY = 1000
+SHOW_EVERY = 9999
 CLOSETOCHEESE_REWARD = 3
 start_q_table = None
 CLOSETOCAT_PENALTY = 2
@@ -126,7 +128,10 @@ for episode in range(HM_EPISODES):
         show = False
     
     episode_reward = 0
-    for i in range(200):
+    pasos = 0
+    queso = 0
+    while 1:
+        pasos += 1
         obs = (player-food, player-enemy)
         if np.random.random() > epsilon:
             action = np.argmax(q_table[obs])
@@ -147,11 +152,13 @@ for episode in range(HM_EPISODES):
         
         if abs(posXR-posXQ) <= dx+1 and abs(posYR-posYQ) <= 1:
             reward = FOOD_REWARD
+            queso = 1
             bk1 = False
             bk2 = False
             p2 = True
         elif abs(posYR-posYQ) <= dy+1 and abs(posXR-posXQ) <= 1:
             reward = FOOD_REWARD
+            queso = 1
             bk1 = False
             bk2 = False
             p2 = True
@@ -238,7 +245,7 @@ for episode in range(HM_EPISODES):
             break
     episode_rewards.append(episode_reward)
     epsilon *= EPS_DECAY
-    Datos_I.write(str(episode_reward) + "," + str(episode) + "\n")
+    Datos_I.write(str(episode_reward) + "," + str(pasos) + "," + str(queso) + "\n")
 
 moving_avg = np.convolve(episode_rewards,np.ones((SHOW_EVERY, ))/ SHOW_EVERY, mode="valid")
  
@@ -247,8 +254,8 @@ plt.ylabel(f"reward {SHOW_EVERY}ma")
 plt.xlabel("episode #")
 plt.show()
 Datos_I.close()
-with open(f"qtable-{int(time.time())}.pickle", "wb") as f:
-    pickle.dump(q_table, f)
+# with open(f"qtable-{RATON}-{n}.pickle", "wb") as f:
+#     pickle.dump(q_table, f)
 pg.exit()
 
 

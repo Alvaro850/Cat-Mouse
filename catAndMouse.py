@@ -13,11 +13,14 @@ from functions.menu import *
 from functions.IA_mov_Component import *
 
 def start():
+    MododeJuego = "Ninguno"
+    RATON = "Hambriento"
+    n = 10
     PI_x = 240
     PF_x = 840
     PI_y = 60
     PF_y = 660
-    n = 10
+    
     HM_EPISODES = 10000
     MOVE_PENALTY = 1
     ENEMY_PENALTY = 300
@@ -25,8 +28,8 @@ def start():
     epsilon = 0.9
     EPS_DECAY = 0.9998
     SHOW_EVERY = 1000
-
-    start_q_table = "qtable-1620582704.pickle"
+    
+    
     cont = 0
     LEARNING_RATE = 0.1
     DISCOUNT = 0.95
@@ -37,9 +40,6 @@ def start():
     d = {1: (255, 175, 0),
         2:(0, 255, 0),
         3:(0, 0, 255)}
-    dx = (PF_x-PI_x)/(n-1)
-    dy = (PF_y-PI_y)/(n-1)
-    coord = coord_array(n, PI_x, PI_y, PF_x, PF_y)
     bk1 = True
     bk2 = True
     p1 = False
@@ -64,7 +64,11 @@ def start():
     miTexto3 = miFuente.render("Jugador 1 Ganó", 0, verde)
     miTexto4 = miFuente.render("Jugador 2 Ganó", 0, rojo)
     velocidad = 0.1
-    MododeJuego = "Ninguno"
+    while MododeJuego == "Ninguno":
+            MododeJuego,n = main(window,n)
+    dx = (PF_x-PI_x)/(n-1)
+    dy = (PF_y-PI_y)/(n-1)
+    coord = coord_array(n, PI_x, PI_y, PF_x, PF_y)
     class gridData:
         n1 = n-1
         poscXG = random.randrange(n)
@@ -76,9 +80,8 @@ def start():
     posXG, posYG = coord[gridData.poscYG, gridData.poscXG]
     posXR, posYR = coord[gridData.poscYR, gridData.poscXR]
     posXQ, posYQ = coord[gridData.poscYQ, gridData.poscXQ]
+    start_q_table = f"qtables/qtable-{RATON}-{n}.pickle"
     while True:
-        if MododeJuego == "Ninguno":
-            MododeJuego = main(window)
         if MododeJuego == "JcJ":
             if bk1 == False and bk2 == False:
                 if p1 == True:

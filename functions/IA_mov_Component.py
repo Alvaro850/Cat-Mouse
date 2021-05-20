@@ -68,6 +68,7 @@ def IA_mov(start_q_table,dx,dy,posYR,posXR,gridData,n,cont):
     else:
         with open(start_q_table, "rb") as f:
             q_table = pickle.load(f)
+    
     player = Blob()
     enemy = Blob()
     food = Blob()
@@ -90,6 +91,8 @@ def IA_mov(start_q_table,dx,dy,posYR,posXR,gridData,n,cont):
             gridData.poscYR -= 1
             bk2 = False
             bk1 = True
+        else:
+            print("no se puede coger pa aca")
     elif action == 1:
         if gridData.poscXR + 1 <= gridData.n1:
             decision2 = "right"
@@ -97,6 +100,8 @@ def IA_mov(start_q_table,dx,dy,posYR,posXR,gridData,n,cont):
             gridData.poscXR += 1
             bk2 = False
             bk1 = True
+        else:
+            print("no se puede coger pa aca")
     elif action == 2:
         if gridData.poscYR + 1 <= gridData.n1:
             decision2 = "down"
@@ -104,6 +109,8 @@ def IA_mov(start_q_table,dx,dy,posYR,posXR,gridData,n,cont):
             gridData.poscYR += 1
             bk2 = False
             bk1 = True
+        else:
+            print("no se puede coger pa aca")
     elif action == 3:
         if gridData.poscXG - 1 >= 0:
             decision2 = "left"
@@ -111,5 +118,7 @@ def IA_mov(start_q_table,dx,dy,posYR,posXR,gridData,n,cont):
             gridData.poscXR -= 1
             bk2 = False
             bk1 = True
+        else:
+            print("no se puede coger pa aca")
 
     return decision2, x2, y2, bk1, bk2, gridData
