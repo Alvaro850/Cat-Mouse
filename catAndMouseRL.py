@@ -46,7 +46,7 @@ class Blob:
         self.x = random.randrange(n)  
         self.y = random.randrange(n)
     def __str__(self):
-        return f"{self.x},{y}"
+        return f"{self.x},{self.y}"
     def __sub__(self, other):
         return (self.x-other.x, self.y-other.y)
     def action(self, choice):
